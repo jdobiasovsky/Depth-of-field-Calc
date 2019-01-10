@@ -17,21 +17,18 @@ shinyUI(fluidPage(
           # Sidebar with a slider input for number of bins 
             sidebarLayout(
               sidebarPanel(
-                radioButtons("sensorsize", h3("Select sensor size"),
+                radioButtons("sensorsize", p(strong("Select sensor size: ")),
                              choices = list("Full Frame" = "full frame", "APS-C" = "APS-C")),
-                numericInput("focal", 
-                             h3("Lens focal length (mm)"), 
+                numericInput("focal_len", p(strong("Focal length (mm)")), 
                              value = 17),
-                numericInput("aperture", 
-                             h3("Aperture value"), 
+                numericInput("aperture", p(strong("Aperture value")),
                              value = 5.6),
-                numericInput("dist", 
-                             h3("Distance to subject (m)"), 
-                             value = 1)
-                ),
+                numericInput("dist", p(strong("Distance to subject (m)")), 
+                             value = 1),
+                radioButtons("conversion", p(strong("Display results in: ")),
+                             choices = list("Meters" = "m", "Centimeters" = "cm"))),
+              
               mainPanel(
-                p(textOutput('sensormessage')),
-                renderTable("dofresults")
-              )
-            )
-        ))
+                strong(textOutput("sensor_message")),
+                p(textOutput('hyperfocal_message')),
+                tableOutput("dof_results")))))
